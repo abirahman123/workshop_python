@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Siswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h4 {
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .add-button {
+            text-align: right;
+            margin-top: 10px;
+            margin-right: 20px;
+        }
+        .add-button a {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .add-button a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pendaftaran Siswa Baru</h1>
+    <h2>SMA NEGERI 1 KEMPO</h2>
+    <h4>TAHUN AJARAN 2023/2024</h4>
+    <div class="add-button">
+        <a href="{{ url_for('add_student') }}">Tambah Siswa Baru</a>
+    </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Tanggal Lahir</th>
+            <th>Asal SMP</th>
+            <th></th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.birth_date }}</td>
+            <td>{{ student.smp_origin }}</td>
+            <td>
+                <a href="{{ url_for('edit_student', id=student.id) }}">Edit</a>
+                <form method="POST" action="{{ url_for('delete_student', id=student.id) }}" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
